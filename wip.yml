@@ -1,0 +1,6 @@
+# 이게뭐약 도커 컴포즈 yml
+#   - 메인 서버 / DL 서버 (각 레포지터리 내 docker file)
+#   - DB 서버 / HAProxy (컴포즈 파일 내 작성)
+# 구조
+#   - HAProxy - 메인 서버 - HAProxy - DL 서버
+#   - 메인 서버는 LB 없이 DB와 연결
