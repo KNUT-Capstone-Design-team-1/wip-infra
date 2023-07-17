@@ -4,3 +4,51 @@
 # 구조
 #   - HAProxy - 메인 서버 - HAProxy - DL 서버
 #   - 메인 서버는 LB 없이 DB와 연결
+version: '3.8' 
+
+services: 
+  wip-main: 
+    image: 2mukee/wip-main
+    depends_on:
+     - wip-db
+    ports: 
+     - 17261:17261
+    networks:
+     - wip-router
+    environment: 
+     - TZ=Asia/Seoul 
+    deploy: 
+      mode: replicated 
+      replicas: 10 
+      update_config: 
+        parallelism: 10 
+        delay: 10s 
+        order: start-first 
+        failure_action: rollback 
+
+  wip-dl:
+    image: 2mukee/wip-dl
+    expose:
+     - 5000
+    networks:
+     - wip-router
+    environment:
+     - TZ=Aisa/Seoul
+    deploy: 
+      mode: replicated 
+      replicas: 10 
+      update_config: 
+        parallelism: 10 
+        delay: 10s 
+        order: start-first 
+        failure_action: rollback 
+
+  wip-db: 
+    image: mongo
+    networks:
+      - wip-router
+    environment:
+     - TZ=Asia/Seoul
+     - MONGO_INIT_DB_DATABASE=whatispill
+    volumes: 
+     - ./data:/data/db 
