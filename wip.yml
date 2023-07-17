@@ -11,8 +11,6 @@ services:
     image: 2mukee/wip-main
     depends_on:
      - wip-db
-    ports: 
-     - 17261:17261
     networks:
      - wip-router
     environment: 
@@ -28,8 +26,6 @@ services:
 
   wip-dl:
     image: 2mukee/wip-dl
-    expose:
-     - 5000
     networks:
      - wip-router
     environment:
