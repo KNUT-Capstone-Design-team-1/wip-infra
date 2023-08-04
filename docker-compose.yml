@@ -1,0 +1,72 @@
+# 이게뭐약 도커 컴포즈 yml
+#   - 메인 서버 / DL 서버 (각 레포지터리 내 docker file)
+#   - DB 서버 / HAProxy (컴포즈 파일 내 작성)
+# 구조
+#   - HAProxy - 메인 서버 - HAProxy - DL 서버
+#   - 메인 서버는 LB 없이 DB와 연결
+version: "3.8"
+
+services:
+  # 메인서버
+  main:
+    build: ../wip_main
+      
+    environment:
+      - TZ=Asia/Seoul
+
+    env_file:
+      - ../wip_main/.env
+
+    depends_on:
+      - db
+
+    deploy:
+      mode: replicated
+      replicas: 4
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: start-first
+        failure_action: rollback
+  
+  # 딥러닝 서버
+  dl:
+    build: ../wip_dl
+
+    environment:
+      - TZ=Asia/Seoul
+    
+    env_file:
+      - ../wip_dl/deeplearning_server/.env
+
+    depends_on:
+      - main
+      - db
+
+    deploy:
+      mode: replicated
+      replicas: 4
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: start-first
+        failure_action: rollback
+
+  # DBMS
+  db:
+    image: mongo:5.0.5
+
+    environment:
+      - MONGO_INIT_DB_DATABASE=whatispill
+
+    volumes:
+      - ../data:/data/db
+
+    deploy:
+      mode: replicated
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+        failure_action: rollback
