@@ -51,6 +51,9 @@ services:
       - main
       - db
 
+    expose:
+      - ${DL_PORT_NUMBER}
+
     deploy:
       mode: replicated
       replicas: 1
