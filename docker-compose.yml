@@ -10,7 +10,6 @@ services:
   # 메인서버
   main:
     build: ../wip_main
-    container_name: wip_main
       
     environment:
       - TZ=Asia/Seoul
@@ -38,7 +37,6 @@ services:
   # 딥러닝 서버
   dl:
     build: ../wip_dl
-    container_name: wip_dl
 
     environment:
       - TZ=Asia/Seoul
@@ -62,7 +60,6 @@ services:
   # DBMS
   db:
     image: mongo:5.0.5
-    container_name: wip_db
 
     environment:
       - TZ=Asia/Seoul
