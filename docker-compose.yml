@@ -63,6 +63,7 @@ services:
     image: mongo:5.0.5
 
     environment:
+      - TZ=Asia/Seoul
       - MONGO_INIT_DB_DATABASE=whatispill
 
     volumes:
