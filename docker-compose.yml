@@ -69,6 +69,9 @@ services:
     volumes:
       - ../data:/data/db
 
+    expose: 
+      - 27017/tcp
+
     deploy:
       mode: replicated
       replicas: 1
