@@ -6,9 +6,6 @@
 #   - 메인 서버는 LB 없이 DB와 연결
 version: "3.8"
 
-# 컴포즈 파일 내에서 사용할 환경변수
-x-environment: "&../wip_main/.env & ../wip_dl/deeplearning_server/.env"
-
 services:
   # 메인서버
   main:
