@@ -27,9 +27,9 @@ services:
 
     deploy:
       mode: replicated
-      replicas: 4
+      replicas: 1
       update_config:
-        parallelism: 2
+        parallelism: 1
         delay: 10s
         order: start-first
         failure_action: continue
@@ -44,13 +44,14 @@ services:
     # 컨테이너 내부에서 사용할 .env
     env_file:
       - ../wip_dl/deeplearning_server/.env
+
     depends_on:
       - main
       - db
 
     deploy:
       mode: replicated
-      replicas: 2
+      replicas: 1
       update_config:
         parallelism: 1
         delay: 10s
@@ -70,7 +71,7 @@ services:
 
     deploy:
       mode: replicated
-      replicas: 2
+      replicas: 1
       update_config:
         parallelism: 1
         delay: 10s
