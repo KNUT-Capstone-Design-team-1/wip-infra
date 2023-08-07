@@ -63,14 +63,10 @@ services:
     image: mongo:5.0.5
 
     environment:
-      - TZ=Asia/Seoul
       - MONGO_INIT_DB_DATABASE=whatispill
 
     volumes:
       - ../data:/data/db
-
-    expose: 
-      - 27017/tcp
 
     deploy:
       mode: replicated
