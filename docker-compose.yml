@@ -45,7 +45,7 @@ services:
     
     # 컨테이너 내부에서 사용할 .env
     env_file:
-      - ../wip_dl/deeplearning_server/.env
+      - ../wip_dl/.env
 
     depends_on:
       - main
