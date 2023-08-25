@@ -50,7 +50,7 @@ services:
       - main
       - db
 
-    expose:
+    ports:
       - ${DL_PORT_NUMBER}
 
     deploy:
