@@ -9,15 +9,15 @@ version: "3.8"
 services:
   # 메인서버
   main:
-    build: ../wip_main
-    container_name: wip_main
+    build: ../wip-main-server-v2
+    container_name: wip-main-server-v2
       
     environment:
       - TZ=Asia/Seoul
 
     # 컨테이너 내부에서 사용할 .env
     env_file:
-      - ../wip_main/.env
+      - ../wip-main-server-v2/.env
 
     depends_on:
       - db
@@ -36,15 +36,15 @@ services:
   
   # 딥러닝 서버
   dl:
-    build: ../wip_dl
-    container_name: wip_dl
+    build: ../wip-deep-learning-server-v2
+    container_name: wip-deep-learning-server-v2
 
     environment:
       - TZ=Asia/Seoul
     
     # 컨테이너 내부에서 사용할 .env
     env_file:
-      - ../wip_dl/.env
+      - ../wip-deep-learning-server-v2/.env
 
     depends_on:
       - main
@@ -65,7 +65,7 @@ services:
   # DBMS
   db:
     image: mongo:5.0.5
-    container_name: wip_mongo
+    container_name: wip-mongo
 
     environment:
       - TZ=Asia/Seoul
