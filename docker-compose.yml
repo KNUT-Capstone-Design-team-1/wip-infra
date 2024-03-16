@@ -51,7 +51,7 @@ services:
       - db
 
     ports:
-      - ${DL_PORT_NUMBER}
+      - ${DL_SERVER_PORT}
 
     deploy:
       mode: replicated
