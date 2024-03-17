@@ -4,16 +4,22 @@
 echo "---- set environment values ----"
 unamestr=$(uname)
 
-if [ "$unamestr"='Linux' ]; then
+if [ $unamestr = "Linux" ]; then
   export $(grep -v '^#' .env | xargs -d '\n')
 
-elif [ "$unamestr"='FreeBSD' ] || [ "$unamestr"='Darwin' ]; then
+elif [ $unamestr = "FreeBSD" ] || [ $unamestr = "Darwin" ]; then
   export $(grep -v '^#' .env | xargs -0)
 fi
+
 echo "---- OK ----"
+echo "---- $1 ----"
 
-# 기존 서비스 종료
-docker compose down
+if [ $1 = "DOCKER-COMPOSE" ]; then
+  # 기존 서비스 종료
+  echo "---- docker compose down ----"
+  docker compose down
 
-# 서비스 시작 (쉘 파일 내에서 export를 수행하기 때문에 환경변수가 적용됨)
-docker compose up -d
+  # 서비스 시작 (쉘 파일 내에서 export를 수행하기 때문에 환경변수가 적용됨)
+  echo "---- docker compose up ----"
+  docker compose up -d
+fi
