@@ -17,5 +17,5 @@ if [ $1 = "DOCKER-COMPOSE" ]; then
   docker compose down
 
   echo "---- Docker compose up ----"
-  docker compose up -d
+  nohup docker compose up -d &
 fi
