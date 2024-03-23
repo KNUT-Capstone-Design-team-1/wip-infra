@@ -15,9 +15,11 @@ services:
     environment:
       - TZ=Asia/Seoul
 
-    # 컨테이너 내부에서 사용할 .env
     env_file:
       - ../wip-main-server-v2/.env
+
+    volumes:
+      - ./logs /usr/local/wip-main-server-v2/logs
 
     depends_on:
       - db
@@ -42,7 +44,6 @@ services:
     environment:
       - TZ=Asia/Seoul
     
-    # 컨테이너 내부에서 사용할 .env
     env_file:
       - ../wip-deep-learning-server-v2/.env
 
