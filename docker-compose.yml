@@ -19,7 +19,7 @@ services:
       - ../wip-main-server-v2/.env
 
     volumes:
-      - ./logs /usr/local/wip-main-server-v2/logs
+      - ../wip-main-server-v2/logs /usr/local/wip-main-server-v2/logs
 
     depends_on:
       - db
