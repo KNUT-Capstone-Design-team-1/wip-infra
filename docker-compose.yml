@@ -19,7 +19,7 @@ services:
       - ../wip-main-server-v2/.env
 
     volumes:
-      - ../wip-main-server-v2/logs /usr/local/wip-main-server-v2/logs
+      - ../wip-main-server-v2/logs:/usr/local/wip-main-server-v2/logs
 
     depends_on:
       - db
@@ -73,7 +73,7 @@ services:
       - MONGO_INIT_DB_DATABASE=whatispill
 
     volumes:
-      - /var/lib/mongodb
+      - /var/lib/mongodb:/var/lib/mongodb
 
     deploy:
       mode: replicated
