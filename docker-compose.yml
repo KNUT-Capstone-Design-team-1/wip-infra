@@ -20,6 +20,8 @@ services:
 
     volumes:
       - ../wip-main-server-v2/logs:/usr/local/wip-main-server-v2/logs
+      - ../resources/pill_recognition:/usr/local/resources/pill_recognition
+      - ../resources/drug_permission:/usr/local/resources/drug_permission
 
     depends_on:
       - db
