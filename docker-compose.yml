@@ -75,7 +75,7 @@ services:
       - MONGO_INIT_DB_DATABASE=whatispill
 
     volumes:
-      - /var/lib/mongodb:/var/lib/mongodb
+      - /var/lib/mongodb:/data/db
 
     deploy:
       mode: replicated
