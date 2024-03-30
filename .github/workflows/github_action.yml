@@ -29,7 +29,7 @@ jobs:
         name: run build only
         run: |
           ssh -o ServerAliveInterval=3600 -vT ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-          "cd ${{ secrets.WORK_DIR_MAIN }} && \
+          "cd ${{ secrets.WORK_DIR_INFRA }} && \
            git pull"
 
       - if: contains(fromJSON('["DOCKER-COMPOSE"]'), github.event.inputs.deploy_mode)
