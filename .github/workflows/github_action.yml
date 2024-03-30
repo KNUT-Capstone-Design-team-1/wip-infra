@@ -8,9 +8,10 @@ on:
       deploy_mode:
         description: 'set deploy mode'
         required: true
-        default: 'DOCKER-COMPOSE'
+        default: 'BUILD-ONLY'
         type: choice
         options:
+          - BUILD-ONLY
           - DOCKER-COMPOSE
 
 jobs:
@@ -24,7 +25,15 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -t rsa -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
 
-      - name: run multiple mode
+      - if: contains(fromJSON('["BUILD-ONLY"]'), github.event.inputs.deploy_mode)
+        name: run build only
+        run: |
+          ssh -o ServerAliveInterval=3600 -vT ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+          "cd ${{ secrets.WORK_DIR_MAIN }} && \
+           git pull
+
+      - if: contains(fromJSON('["DOCKER-COMPOSE"]'), github.event.inputs.deploy_mode)
+        name: run multiple mode
         run: |
           ssh -o ServerAliveInterval=3600 -vT ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
           "cd ${{ secrets.WORK_DIR_INFRA }} && \
