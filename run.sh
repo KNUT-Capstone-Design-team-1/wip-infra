@@ -14,8 +14,11 @@ echo "---- $1 ----"
 
 if [ $1 = "DOCKER-COMPOSE" ]; then
   echo "---- Docker compose down ----"
-  docker compose down
+  docker-compose down
+
+  echo "--- Docker compose rebuild ---"
+  docker-compose build --no-cache
 
   echo "---- Docker compose up ----"
-  docker compose up -d
+  docker-compose up -d
 fi
