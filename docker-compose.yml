@@ -74,7 +74,6 @@ services:
         order: start-first
         failure_action: continue
 
-
   # DBMS
   db:
     image: mongo:7.0.7
