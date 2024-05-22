@@ -99,5 +99,3 @@ services:
 
 networks:
   wip-net:
-  external-net:
-    driver: host
