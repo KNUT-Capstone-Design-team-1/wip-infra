@@ -29,6 +29,9 @@ services:
     ports:
       - ${MAIN_SERVER_PORT}:${MAIN_SERVER_PORT}
 
+    networks:
+      - wip-net
+
     deploy:
       mode: replicated
       replicas: 1
@@ -56,6 +59,9 @@ services:
 
     ports:
       - ${DL_SERVER_PORT}:${DL_SERVER_PORT}
+    
+    networks:
+      - wip-net
 
     deploy:
       mode: replicated
@@ -79,6 +85,9 @@ services:
     volumes:
       - /var/lib/mongodb:/data/db
 
+    networks:
+      - wip-net
+
     deploy:
       mode: replicated
       replicas: 1
@@ -87,3 +96,8 @@ services:
         delay: 10s
         order: start-first
         failure_action: continue
+
+networks:
+  wip-net:
+  external-net:
+    driver: host
