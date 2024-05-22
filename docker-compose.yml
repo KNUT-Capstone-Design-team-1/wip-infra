@@ -75,7 +75,7 @@ services:
       - MONGO_INIT_DB_DATABASE=whatispill
 
     volumes:
-      - /var/lib/mongodb:/data/db
+      - wip-db:/data/db
 
     deploy:
       mode: replicated
@@ -85,3 +85,6 @@ services:
         delay: 10s
         order: start-first
         failure_action: continue
+
+volumes:
+  wip-db:
