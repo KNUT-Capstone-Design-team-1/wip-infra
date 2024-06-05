@@ -10,28 +10,21 @@ services:
   # 메인서버
   main:
     build: ../wip-main-server-v2
-    container_name: wip-main-server-v2
+    container_name: main
     restart: always
-      
     environment:
       - TZ=Asia/Seoul
-
     env_file:
       - ../wip-main-server-v2/.env
-
     volumes:
       - ../wip-main-server-v2/logs:/usr/local/wip-main-server-v2/logs
       - ../resources:/usr/local/resources
-
     depends_on:
       - db
-
-    ports:
-      - ${MAIN_SERVER_PORT}:${MAIN_SERVER_PORT}
-
-    networks:
-      - wip-net
-
+    network_mode: host
+    extra_hosts:
+      - 'dl:127.0.0.1'
+      - 'db:127.0.0.1'
     deploy:
       mode: replicated
       replicas: 1
@@ -44,25 +37,16 @@ services:
   # 딥러닝 서버
   dl:
     build: ../wip-deep-learning-server-v2
-    container_name: wip-deep-learning-server-v2
+    container_name: dl
     restart: always
-
     environment:
       - TZ=Asia/Seoul
-    
     env_file:
       - ../wip-deep-learning-server-v2/.env
-
-    depends_on:
-      - main
-      - db
-
-    ports:
-      - ${DL_SERVER_PORT}:${DL_SERVER_PORT}
-    
-    networks:
-      - wip-net
-
+    network_mode: host
+    extra_hosts:
+      - 'main:127.0.0.1'
+      - 'db:127.0.0.1'
     deploy:
       mode: replicated
       replicas: 1
@@ -75,19 +59,14 @@ services:
   # DBMS
   db:
     image: mongo:7.0.7
-    container_name: wip-mongo
+    container_name: db
     restart: always
-
     environment:
       - TZ=Asia/Seoul
       - MONGO_INIT_DB_DATABASE=whatispill
-
     volumes:
       - /var/lib/mongodb:/data/db
-
-    networks:
-      - wip-net
-
+    network_mode: host
     deploy:
       mode: replicated
       replicas: 1
@@ -96,6 +75,3 @@ services:
         delay: 10s
         order: start-first
         failure_action: continue
-
-networks:
-  wip-net:
